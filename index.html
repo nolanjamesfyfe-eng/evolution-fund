@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution Fund</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09090b;
+            --text: #e0dde8;
+            --dim: #807d8e;
+            --faint: #28262f;
+            --gold: #d4a843;
+            --gold-soft: rgba(212,168,67,.12);
+            --blue: #6b8fd4;
+            --blue-soft: rgba(107,143,212,.12);
+            --violet: #a07ed6;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Instrument Sans', -apple-system, sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{
+            font-family:var(--sans);
+            background:var(--bg);
+            color:var(--text);
+            -webkit-font-smoothing:antialiased;
+        }
+        .w{max-width:920px;margin:0 auto;padding:0 36px}
+
+        /* NAV */
+        nav{padding:32px 0;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--faint)}
+        .logo{font-family:var(--serif);font-size:1rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:400}
+
+        nav a{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color .4s;font-weight:500}
+        nav a:hover{color:var(--gold)}
+
+        /* HERO */
+        .hero{padding:120px 0 80px;text-align:center}
+        .hero h1{
+            font-family:var(--serif);font-weight:300;
+            font-size:clamp(3.2rem,7vw,5.8rem);
+            line-height:1.06;letter-spacing:-.015em;
+            margin-bottom:36px;
+        }
+        .hero h1 .hl{
+            background:linear-gradient(135deg, #8eaee0 0%, #b9a0d8 30%, #d8bf8a 65%, #d4a843 100%);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+            font-style:italic;
+        }
+        .hero p{
+            font-size:1.15rem;color:var(--dim);
+            max-width:540px;margin:0 auto;line-height:1.8;
+        }
+        .line{width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:64px auto 0}
+
+        /* THESIS — small powerful block */
+        .thesis{
+            padding:80px 0 60px;
+            border-top:1px solid var(--faint);
+            text-align:center;
+        }
+        .thesis-label{
+            font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600
+        }
+        .thesis h2{
+            font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:400;
+            line-height:1.2;margin-bottom:24px;max-width:650px;margin-left:auto;margin-right:auto
+        }
+        .thesis p{
+            font-size:1.05rem;color:var(--dim);max-width:600px;margin:0 auto;line-height:1.8
+        }
+
+        /* EVOLVES */
+        .evolves{
+            padding:48px 0 60px;
+        }
+        .evolves-inner{
+            background:linear-gradient(135deg, rgba(212,168,67,.04) 0%, rgba(107,143,212,.04) 100%);
+            border:1px solid var(--faint);
+            padding:36px 40px;
+            display:grid;grid-template-columns:auto 1fr;gap:20px 28px;align-items:start;
+        }
+        .evolves-icon{
+            font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--gold);line-height:1;padding-top:2px
+        }
+        .evolves-inner h3{
+            font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:8px;color:var(--text)
+        }
+        .evolves-inner p{
+            font-size:.95rem;color:var(--dim);line-height:1.7
+        }
+        .evolves-phases{
+            grid-column:span 2;
+            display:flex;gap:0;margin-top:12px;
+        }
+        .eph{
+            flex:1;padding:16px 0;border-top:2px solid var(--faint);
+            transition:border-color .3s;
+        }
+        .eph:hover{border-color:var(--gold)}
+        .eph .date{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:600}
+        .eph .phase{font-size:.88rem;color:var(--text);margin-bottom:4px;font-weight:500}
+        .eph .desc{font-size:.78rem;color:var(--dim);line-height:1.5}
+
+        /* STRUCTURE */
+        .structure{
+            padding:72px 0;
+            border-top:1px solid var(--faint);
+        }
+        .structure-label{
+            font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:48px;text-align:center;font-weight:600
+        }
+        .tree{display:flex;flex-direction:column;align-items:center}
+        .parent{text-align:center;padding-bottom:36px;position:relative}
+        .parent::after{content:'';position:absolute;bottom:0;left:50%;width:1px;height:36px;background:var(--faint)}
+        .parent h2{font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--text)}
+        .parent small{font-size:.75rem;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:6px}
+        .branch-line{width:400px;height:1px;background:var(--faint);position:relative}
+        .branch-line::before,.branch-line::after{content:'';position:absolute;top:0;width:1px;height:28px;background:var(--faint)}
+        .branch-line::before{left:0}
+        .branch-line::after{right:0}
+        .children{display:grid;grid-template-columns:1fr 1fr;gap:0;width:400px;padding-top:28px}
+        .child{text-align:center;padding:24px 20px}
+        .child .pct{
+            font-size:2.8rem;font-family:var(--serif);font-weight:300;margin-bottom:8px;line-height:1
+        }
+        .child:first-child .pct{color:var(--gold)}
+        .child:last-child .pct{color:var(--blue)}
+        .child h3{font-family:var(--serif);font-size:1.4rem;font-weight:400;margin-bottom:8px}
+        .child p{font-size:.88rem;color:var(--dim);line-height:1.6;max-width:180px;margin:0 auto}
+
+        /* THEMES */
+        .themes{
+            padding:60px 0 72px;
+            border-top:1px solid var(--faint);
+        }
+        .themes-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);margin-bottom:28px;font-weight:600}
+        .theme-row{display:flex;flex-wrap:wrap}
+        .theme-item{
+            padding:18px 0;border-bottom:1px solid var(--faint);width:50%;
+            display:flex;justify-content:space-between;align-items:baseline;
+        }
+        .theme-item:nth-child(odd){padding-right:28px}
+        .theme-item:nth-child(even){padding-left:28px}
+        .theme-name{font-family:var(--serif);font-size:1.15rem;color:var(--text);font-weight:400}
+        .theme-detail{font-size:.75rem;color:var(--dim);letter-spacing:.04em}
+
+        /* CTA */
+        .cta{
+            padding:80px 0;text-align:center;border-top:1px solid var(--faint);
+        }
+        .cta p{
+            font-family:var(--serif);font-size:1.8rem;font-weight:300;
+            font-style:italic;color:var(--dim);max-width:520px;
+            margin:0 auto 12px;line-height:1.4;
+        }
+        .cta .sub{
+            font-size:.9rem;color:var(--faint);margin-bottom:36px;font-style:normal;
+            font-family:var(--sans);
+        }
+        .cta a{
+            font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+            color:var(--gold);text-decoration:none;
+            padding:14px 44px;border:1px solid rgba(212,168,67,.3);
+            transition:all .4s;font-weight:600;
+        }
+        .cta a:hover{background:var(--gold-soft);border-color:rgba(212,168,67,.6)}
+
+        /* FOOTER */
+        footer{
+            padding:28px 0;border-top:1px solid var(--faint);
+            display:flex;justify-content:space-between;align-items:center;
+        }
+        footer span{font-size:.68rem;color:var(--faint);letter-spacing:.04em}
+        footer a{font-size:.68rem;color:var(--dim);text-decoration:none;transition:color .3s}
+        footer a:hover{color:var(--gold)}
+
+        /* FADE */
+        .fi{opacity:0;transform:translateY(14px);animation:fu .9s ease forwards}
+        @keyframes fu{to{opacity:1;transform:translateY(0)}}
+        .d1{animation-delay:.12s}.d2{animation-delay:.24s}.d3{animation-delay:.38s}.d4{animation-delay:.52s}
+
+        @media(max-width:640px){
+            .w{padding:0 24px}
+            .hero{padding:80px 0 60px}
+            .children{width:100%;max-width:360px}
+            .branch-line{width:100%;max-width:360px}
+            .theme-item{width:100%;padding-left:0!important;padding-right:0!important}
+            .evolves-inner{grid-template-columns:1fr;padding:28px 24px}
+            .evolves-icon{display:none}
+            .evolves-phases{flex-direction:column;gap:8px}
+            .eph{padding:12px 0}
+            footer{flex-direction:column;gap:12px;text-align:center}
+        }
+    </style>
+</head>
+<body>
+<div class="w">
+    <nav>
+        <div class="logo">Evolution Fund</div>
+        <a href="/cdn-cgi/l/email-protection#1d75787171725d7568707c73746964336a726f7179">Contact</a>
+    </nav>
+
+    <section class="hero">
+        <h1 class="fi">Capital aligned<br>with <span class="hl">evolution</span></h1>
+        <p class="fi d1">We invest in the universe's oldest measurable trend — the accelerating interplay of energy, information, and matter — at the inflection point of a civilizational turning.</p>
+        <div class="line fi d2"></div>
+    </section>
+
+    <section class="structure fi d2">
+        <div class="structure-label">Structure</div>
+        <div class="tree">
+            <div class="parent">
+                <h2>Humanity</h2>
+                <small>Parent Entity</small>
+            </div>
+            <div class="branch-line"></div>
+            <div class="children">
+                <div class="child">
+                    <div class="pct">90%</div>
+                    <h3>Evolution Fund</h3>
+                    <p>Critical resources, AI compute, store of value, and a cash-secured options engine</p>
+                </div>
+                <div class="child">
+                    <div class="pct">10%</div>
+                    <h3>Humanity Labs</h3>
+                    <p>In-house SaaS, micro AI plays, and coordination tools</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="thesis fi d3">
+        <div class="thesis-label">Investment Thesis</div>
+        <h2>Value flows to whoever creates order from chaos.</h2>
+        <p>Life has been doing this for 3.8 billion years. AI is now accelerating it. Three things enable this organization: energy, materials, and information. They've been accelerating together throughout history — and we are entering the most rapid phase.</p>
+    </section>
+
+    <section class="evolves fi d3">
+        <div class="evolves-inner">
+            <div class="evolves-icon">∿</div>
+            <div>
+                <h3>The fund is not static. It evolves.</h3>
+                <p>Materials equilibrate over time — high prices attract new supply. But information compounds — network effects at near-zero marginal cost. So we hold materials tactically while supply is constrained, and rotate into compounding positions as cycles mature.</p>
+            </div>
+            <div class="evolves-phases">
+                <div class="eph">
+                    <div class="date">Now → 2028</div>
+                    <div class="phase">Scarcity Phase</div>
+                    <div class="desc">Materials and energy at full weight. Supply-demand imbalances are visible and measurable.</div>
+                </div>
+                <div class="eph">
+                    <div class="date">2026 → 2032</div>
+                    <div class="phase">Build-Out Matures</div>
+                    <div class="desc">New supply comes online. Rotate materials proceeds into AI infrastructure and dry powder.</div>
+                </div>
+                <div class="eph">
+                    <div class="date">2028+</div>
+                    <div class="phase">Information Dominance</div>
+                    <div class="desc">The coordination layer captures most value. Portfolio tilts toward compounding positions.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="themes fi d4">
+        <div class="themes-label">Where capital goes</div>
+        <div class="theme-row">
+            <div class="theme-item"><span class="theme-name">Energy Infrastructure</span><span class="theme-detail">Uranium · Grid · Nuclear Utilities</span></div>
+            <div class="theme-item"><span class="theme-name">Store of Value</span><span class="theme-detail">Physical Gold · Bitcoin · Silver</span></div>
+            <div class="theme-item"><span class="theme-name">AI & Compute</span><span class="theme-detail">Semiconductors · Data Centers · Hyperscalers</span></div>
+            <div class="theme-item"><span class="theme-name">Critical Materials</span><span class="theme-detail">Copper · Rare Earths · Lithium · Nickel</span></div>
+            <div class="theme-item"><span class="theme-name">Options Engine</span><span class="theme-detail">3-Tier Cash-Secured Put Strategy</span></div>
+            <div class="theme-item"><span class="theme-name">Coordination Tools</span><span class="theme-detail">In-house SaaS · Micro AI Ventures</span></div>
+        </div>
+    </section>
+
+    <section class="cta fi d4">
+        <p>Adequate if wrong. Strong if right.<br>Exceptional if it accelerates.</p>
+        <div class="sub">Complexity compounds. We allocate accordingly.</div>
+        <a href="/cdn-cgi/l/email-protection#553d3039393a153d2038343b3c212c7b223a273931">Get in touch</a>
+    </section>
+
+    <footer>
+        <span>&copy; 2026 Humanity</span>
+        <div style="display:flex;gap:20px">
+            <a href="#">evolution.fund</a>
+            <a href="#">humanitylabs.org</a>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
